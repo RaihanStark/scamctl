@@ -49,7 +49,7 @@ var checkCmd = &cobra.Command{
 		}
 
 		if !jsonOutput {
-			fmt.Println("🧠 Analyzing communication intent via Antigravity...")
+			fmt.Println("[+] Analyzing communication intent via Antigravity...")
 		}
 
 		provider := ai.NewAgyProvider()

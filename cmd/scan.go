@@ -24,7 +24,7 @@ var scanCmd = &cobra.Command{
 		}
 
 		if !jsonOutput {
-			fmt.Printf("🔍 Scanning attachment: %s...\n", filepath.Base(filePath))
+			fmt.Printf("[*] Scanning attachment: %s...\n", filepath.Base(filePath))
 		}
 
 		// 1. Static Forensic Scan
@@ -43,7 +43,7 @@ var scanCmd = &cobra.Command{
 		// 2. AI Analysis if enabled
 		if !noAI {
 			if !jsonOutput {
-				fmt.Println("🧠 Running AI intent analysis via Antigravity...")
+				fmt.Println("[+] Running AI intent analysis via Antigravity...")
 			}
 
 			var findingsSummary []string
@@ -61,7 +61,7 @@ var scanCmd = &cobra.Command{
 			)
 			if err != nil {
 				if !jsonOutput {
-					fmt.Fprintf(os.Stderr, "⚠️  AI analysis warning: %v (falling back to forensic findings)\n", err)
+					fmt.Fprintf(os.Stderr, "[!] AI analysis warning: %v (falling back to forensic findings)\n", err)
 				}
 			} else {
 				rep.AIResult = aiRes

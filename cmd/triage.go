@@ -34,7 +34,7 @@ var triageCmd = &cobra.Command{
 		}
 
 		if !jsonOutput {
-			fmt.Printf("🔍 Running combined triage on '%s' and message...\n", filepath.Base(triageFile))
+			fmt.Printf("[*] Running combined triage on '%s' and message...\n", filepath.Base(triageFile))
 		}
 
 		// 1. Static Forensic Scan
@@ -45,7 +45,7 @@ var triageCmd = &cobra.Command{
 
 		// 2. AI Correlated Intent Analysis
 		if !jsonOutput {
-			fmt.Println("🧠 Correlating file metadata with message intent via Antigravity...")
+			fmt.Println("[+] Correlating file metadata with message intent via Antigravity...")
 		}
 
 		var findingsSummary []string
@@ -71,7 +71,7 @@ var triageCmd = &cobra.Command{
 		aiScore := 0
 		if err != nil {
 			if !jsonOutput {
-				fmt.Fprintf(os.Stderr, "⚠️  AI analysis warning: %v\n", err)
+				fmt.Fprintf(os.Stderr, "[!] AI analysis warning: %v\n", err)
 			}
 		} else {
 			rep.AIResult = aiRes

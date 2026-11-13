@@ -10,17 +10,22 @@ import (
 )
 
 var (
+	asciiBorder = lipgloss.Border{
+		Top:         "-",
+		Bottom:      "-",
+		Left:        "|",
+		Right:       "|",
+		TopLeft:     "+",
+		TopRight:    "+",
+		BottomLeft:  "+",
+		BottomRight: "+",
+	}
+
 	titleStyle = lipgloss.NewStyle().
 			Bold(true).
 			Foreground(lipgloss.Color("#FFFFFF")).
 			Background(lipgloss.Color("#5A56E0")).
 			Padding(0, 1)
-
-	headerBox = lipgloss.NewStyle().
-			Border(lipgloss.RoundedBorder()).
-			BorderForeground(lipgloss.Color("#5A56E0")).
-			Padding(0, 1).
-			MarginBottom(1)
 
 	labelStyle = lipgloss.NewStyle().
 			Bold(true).
@@ -60,7 +65,7 @@ var (
 			MarginBottom(0)
 
 	recommendationBox = lipgloss.NewStyle().
-				Border(lipgloss.NormalBorder()).
+				Border(asciiBorder).
 				BorderForeground(lipgloss.Color("#E74C3C")).
 				Padding(0, 1).
 				MarginTop(1)
@@ -94,7 +99,7 @@ func RenderReport(rep *analyzer.Report) string {
 
 	// Forensic Findings
 	if rep.StaticResult != nil && len(rep.StaticResult.Findings) > 0 {
-		b.WriteString(sectionTitle.Render("── Forensic File Findings ───────────────────────────") + "\n")
+		b.WriteString(sectionTitle.Render("--- Forensic File Findings ---------------------------") + "\n")
 		for _, f := range rep.StaticResult.Findings {
 			sevBadge := formatSeverity(f.Severity)
 			b.WriteString(fmt.Sprintf(" %s %s\n", sevBadge, lipgloss.NewStyle().Bold(true).Render(f.Title)))
@@ -104,15 +109,15 @@ func RenderReport(rep *analyzer.Report) string {
 
 	// URLs if any
 	if rep.StaticResult != nil && len(rep.StaticResult.ExtractedURLs) > 0 {
-		b.WriteString(sectionTitle.Render("── Extracted URLs ───────────────────────────────────") + "\n")
+		b.WriteString(sectionTitle.Render("--- Extracted URLs -----------------------------------") + "\n")
 		for _, u := range rep.StaticResult.ExtractedURLs {
-			b.WriteString(fmt.Sprintf(" • %s\n", lipgloss.NewStyle().Foreground(lipgloss.Color("#3498DB")).Render(u)))
+			b.WriteString(fmt.Sprintf(" * %s\n", lipgloss.NewStyle().Foreground(lipgloss.Color("#3498DB")).Render(u)))
 		}
 	}
 
 	// AI Intent Analysis
 	if rep.AIResult != nil {
-		b.WriteString(sectionTitle.Render("── AI Intent & Social Engineering ───────────────────") + "\n")
+		b.WriteString(sectionTitle.Render("--- AI Intent & Social Engineering -------------------") + "\n")
 		if rep.AIResult.Summary != "" {
 			b.WriteString(fmt.Sprintf(" %s\n", valueStyle.Render(rep.AIResult.Summary)))
 		}
@@ -120,14 +125,14 @@ func RenderReport(rep *analyzer.Report) string {
 		if len(rep.AIResult.Tactics) > 0 {
 			b.WriteString("\n " + labelStyle.Render("Tactics Identified:") + "\n")
 			for _, t := range rep.AIResult.Tactics {
-				b.WriteString(fmt.Sprintf("  • %s\n", lipgloss.NewStyle().Foreground(lipgloss.Color("#E74C3C")).Render(t)))
+				b.WriteString(fmt.Sprintf("  * %s\n", lipgloss.NewStyle().Foreground(lipgloss.Color("#E74C3C")).Render(t)))
 			}
 		}
 
 		if len(rep.AIResult.RedFlags) > 0 {
 			b.WriteString("\n " + labelStyle.Render("Red Flags / Deceptive Cues:") + "\n")
 			for _, rf := range rep.AIResult.RedFlags {
-				b.WriteString(fmt.Sprintf("  ⚠ %s\n", lipgloss.NewStyle().Foreground(lipgloss.Color("#F1C40F")).Render(rf)))
+				b.WriteString(fmt.Sprintf("  [!] %s\n", lipgloss.NewStyle().Foreground(lipgloss.Color("#F1C40F")).Render(rf)))
 			}
 		}
 	}
@@ -160,13 +165,13 @@ func RenderReport(rep *analyzer.Report) string {
 func formatBadge(v analyzer.Verdict) string {
 	switch v {
 	case analyzer.VerdictCritical:
-		return criticalBadge.Render("✖ CRITICAL / MALICIOUS")
+		return criticalBadge.Render("[CRITICAL / MALICIOUS]")
 	case analyzer.VerdictHighRisk:
-		return highRiskBadge.Render("▲ HIGH RISK")
+		return highRiskBadge.Render("[HIGH RISK]")
 	case analyzer.VerdictSuspicious:
-		return suspiciousBadge.Render("⚠ SUSPICIOUS")
+		return suspiciousBadge.Render("[SUSPICIOUS]")
 	default:
-		return safeBadge.Render("✓ SAFE")
+		return safeBadge.Render("[SAFE]")
 	}
 }
 
@@ -200,8 +205,8 @@ func renderScoreBar(score int) string {
 		fillColor = "#F39C12"
 	}
 
-	barFilled := lipgloss.NewStyle().Foreground(lipgloss.Color(fillColor)).Render(strings.Repeat("█", filled))
-	barEmpty := lipgloss.NewStyle().Foreground(lipgloss.Color("#444444")).Render(strings.Repeat("░", empty))
+	barFilled := lipgloss.NewStyle().Foreground(lipgloss.Color(fillColor)).Render(strings.Repeat("#", filled))
+	barEmpty := lipgloss.NewStyle().Foreground(lipgloss.Color("#444444")).Render(strings.Repeat("-", empty))
 
 	return fmt.Sprintf("[%s%s] %d/100", barFilled, barEmpty, score)
 }
