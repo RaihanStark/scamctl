@@ -1,0 +1,17 @@
+# Binaries
+scamctl
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test artifacts
+testdata/
+*.log
+/tmp/
+
+# OS / Editor
+.DS_Store
+.idea/
+.vscode/
