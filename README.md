@@ -72,5 +72,28 @@ scamctl scan ./test.zip --json
 
 ---
 
+## ⚠️ Disclaimer & Security Notice
+
+> **IMPORTANT: `scamctl` is designed solely as an early-warning detection, triage, and educational reference tool. It is NOT a substitute for comprehensive endpoint security or professional human judgment.**
+
+Please read and understand the following considerations:
+
+1. **Not a Sole Line of Defense:**
+   * Never rely on `scamctl` as your only security protection.
+   * Always maintain an up-to-date operating system, active Endpoint Detection & Response (EDR) or Antivirus (AV) solution, and proper browser protections.
+
+2. **No Guarantee of Zero False Negatives:**
+   * Novel threats, zero-day exploits, bespoke social engineering lures, and polymorphic cryptors can evade automated heuristics and AI analysis.
+   * A **`[SAFE]`** verdict indicates only that no known red flags or suspicious indicators were identified during the scan—it does **not** guarantee that a file or communication is 100% benign.
+
+3. **Human Discretion & Best Practices:**
+   * If a client, employer, or sender asks you to bypass platform rules, download unexpected archives, or run external commands, treat it with suspicion regardless of scan results.
+   * If you are in doubt about an unknown file, inspect it inside an isolated virtual machine or sandbox, or discard it immediately.
+
+4. **Limitation of Liability:**
+   * This software is provided "as is", without warranty of any kind, express or implied. The developers and contributors assume no liability for any security breaches, malware infections, financial losses, data loss, or damages arising from the use of or reliance on this tool.
+
+---
+
 ## License
 MIT
