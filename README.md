@@ -60,29 +60,14 @@ scamctl check -f suspicious_email.eml
 cat proposal.txt | scamctl check
 ```
 
-### 3. Reverse Engineer Malware (Understand How It Works)
-```bash
-# Deep dissection of binaries, executables, scripts, or archives
-scamctl reverse ./suspicious_file.exe
-
-# Or reverse engineer without AI (pure offline forensics):
-scamctl reverse ./suspicious_file.exe --no-ai
-```
-- Dissects PE headers, sections, and calculates Shannon entropy (packer/crypter detection).
-- Categorizes high-risk Win32 APIs (Process Injection, DPAPI Credential Theft, Keyloggers).
-- Deobfuscates Base64 and PowerShell `-enc` stagers to reveal the raw payload.
-- Extracts C2 URLs, public IPs, targeted browser paths, and crypto wallet extensions.
-- Generates an AI-powered technical teardown explaining the full execution kill chain.
-
-### 4. Correlated Triage (File + Message)
+### 3. Correlated Triage (File + Message)
 ```bash
 scamctl triage -f contract.pdf -m "Please sign this contract and run the verification utility."
 ```
 
-### 5. Machine-Readable JSON Output
+### 4. Machine-Readable JSON Output
 ```bash
-scamctl scan ./test.exe --json
-scamctl reverse ./test.exe --json
+scamctl scan ./test.zip --json
 ```
 
 ---
