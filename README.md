@@ -97,5 +97,11 @@ Please read and understand the following considerations:
 
 ---
 
+## 🤖 AI Generation & Attribution
+
+This repository and codebase were **heavily created and developed with AI assistance**, specifically using **Google's Gemini model** via the **Antigravity** platform developed by Google DeepMind. See [AI_DISCLOSURE.md](AI_DISCLOSURE.md) for full details and open-source transparency notes.
+
+---
+
 ## License
 MIT
