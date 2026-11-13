@@ -16,6 +16,8 @@
 - **PDF Exploit Analysis**: Flags dangerous PDF object dictionary triggers (`/Launch`, `/JavaScript`, `/OpenAction`, `/EmbeddedFiles`).
 - **Windows LNK Shortcut Inspection**: Parses `.lnk` files for stealthy PowerShell, CMD, curl, or mshta downloaders.
 
+*(For a complete technical breakdown and threat matrix, see [STATIC_THREATS.md](STATIC_THREATS.md).)*
+
 ### 2. AI Semantic & Intent Analysis
 - Powered out-of-the-box by **Google Antigravity (`agy`)** CLI (no external API keys required).
 - Evaluates psychological triggers: artificial urgency, panic coercion, authority impersonation (PayPal, Geek Squad, HR, Banks).
